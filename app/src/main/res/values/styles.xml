@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.CrimeReportingApp.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/colorPrimary</item> <!-- Reference to colorPrimary -->
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item> <!-- Reference to colorPrimaryVariant -->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item> <!-- Reference to colorOnPrimary -->
+        <!-- Other theme attributes -->
+    </style>
+</resources>

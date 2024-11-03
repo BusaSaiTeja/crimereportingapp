@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Crime Reporting App</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="crime_types">
+        <item>Theft</item>
+        <item>Assault</item>
+        <item>Vandalism</item>
+        <item>Fraud</item>
+        <item>Burglary</item>
+        <item>Robbery</item>
+        <item>Missing Person</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>

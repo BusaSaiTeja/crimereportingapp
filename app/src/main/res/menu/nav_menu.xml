@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_upload_crime"
+        android:title="Upload Crime" />
+    <item
+        android:id="@+id/nav_crime_visualization"
+        android:title="Crime Visualization" />
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout" />
+</menu>

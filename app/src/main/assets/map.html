@@ -52,15 +52,63 @@
             // Create a new marker at the clicked position
             selectedMarker = L.marker([lat, lng]).addTo(map);
 
-            // Prepare the location data (can be extended to include more details like place name)
-            const locationData = {
-                name: "Selected Location",  // You can improve this with reverse geocoding
-                lat: lat,
-                lng: lng
-            };
+            // Perform reverse geocoding to get the location name
+            const geocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1&accept-language=en`;
 
-            // Send the location data to Android via the WebAppInterface
-            Android.receiveLocationData(JSON.stringify(locationData));
+            // Fetch data from Nominatim (OpenStreetMap's geocoding service)
+            fetch(geocodeUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Full Geocoding Data:", data); // Log the full data
+
+                    if (data && data.address) {
+                        // Extracting the location details from the response
+                        const address = data.address;
+
+                        // Concatenate the address components into a full location name
+                        let locationName = '';
+                        if (address.road) locationName += address.road + ', ';
+                        if (address.suburb) locationName += address.suburb + ', ';
+                        if (address.city) locationName += address.city + ', ';
+                        if (address.town) locationName += address.town + ', ';
+                        if (address.village) locationName += address.village + ', ';
+                        if (address.state) locationName += address.state + ', ';
+                        if (address.country) locationName += address.country;
+
+                        // Remove the last comma if there is one
+                        locationName = locationName.replace(/, $/, '');
+
+                        console.log("Formatted Location Name:", locationName); // Log the formatted location name
+
+                        // Prepare the location data
+                        const locationData = {
+                            name: locationName,  // Use the concatenated location name
+                            lat: lat,
+                            lng: lng
+                        };
+
+                        // Send the location data to Android via the WebAppInterface
+                        Android.receiveLocationData(JSON.stringify(locationData));
+                    } else {
+                        console.log("No address data found.");
+                        // Fallback to "Unknown Location"
+                        const locationData = {
+                            name: "Unknown Location",
+                            lat: lat,
+                            lng: lng
+                        };
+                        Android.receiveLocationData(JSON.stringify(locationData));
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching geocoding data:", error);
+                    const locationData = {
+                        name: "Error in Location Fetching",
+                        lat: lat,
+                        lng: lng
+                    };
+                    Android.receiveLocationData(JSON.stringify(locationData));
+                });
         });
     }
 

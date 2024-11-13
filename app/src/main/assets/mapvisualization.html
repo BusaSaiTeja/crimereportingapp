@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Visualization</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 100vh; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script>
+    let map;
+
+    // Initialize the map
+    function initMap() {
+        map = L.map('map').setView([20.5937, 78.9629], 5);  // Center on India
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Adjust marker size dynamically based on zoom level
+        map.on('zoom', function() {
+            updateMarkerSize();
+        });
+    }
+
+    function addCrimeData(crimeReports) {
+        console.log("Crime data received:", crimeReports); // Log received data
+
+        crimeReports.forEach(function(report) {
+            let markerColor = getMarkerColor(report.type);
+
+            // Add a circle marker for each crime report with dynamic radius
+            let marker = L.circleMarker([report.lat, report.lng], {
+                color: markerColor,
+                fillOpacity: 0.6
+            })
+            .bindPopup(`<b>Crime Type: ${report.type}</b><br>Description: ${report.description}`)
+            .addTo(map);
+
+            // Set the initial size based on the zoom level
+            updateMarkerSize();
+        });
+    }
+
+    // Function to determine the marker color based on the crime type
+    function getMarkerColor(crimeType) {
+        switch(crimeType) {
+            case 'Theft': return 'blue';
+            case 'Assault': return 'purple';
+            case 'Vandalism': return 'orange';
+            case 'Fraud': return 'yellow';
+            case 'Burglary': return 'green';
+            case 'Robbery': return 'red';
+            case 'Missing Person': return 'pink';
+            default: return 'grey';
+        }
+    }
+
+    // Function to update the marker size dynamically based on zoom level
+    function updateMarkerSize() {
+        const zoomLevel = map.getZoom(); // Get the current zoom level
+        const radius = zoomLevel * 0.5;  // Adjust the factor to control marker size
+
+        // Update all markers' radius based on zoom level
+        map.eachLayer(function(layer) {
+            if (layer instanceof L.CircleMarker) {
+                layer.setRadius(radius);
+            }
+        });
+    }
+
+    // Initialize the map on page load
+    window.onload = initMap;
+</script>
+
+</body>
+</html>

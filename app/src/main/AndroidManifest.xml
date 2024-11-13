@@ -4,6 +4,13 @@
     package="com.example.crime_reporting_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
 
     <application
         android:allowBackup="true"
@@ -33,6 +40,8 @@
         <activity android:name=".activities.ProfileActivity" android:exported="false" />
         <activity android:name=".activities.UploadCrimeActivity" android:exported="false"  />
         <activity android:name=".activities.CrimeVisualizationActivity" android:exported="false" />
+        <activity android:name=".activities.WebViewActivity" android:exported="false" />
+
 
     </application>
 

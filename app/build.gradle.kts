@@ -43,6 +43,8 @@ dependencies {
     implementation("com.google.firebase:firebase-storage") // Use BOM version
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.squareup.picasso:picasso:2.8")
+    implementation("org.osmdroid:osmdroid-android:6.1.11")
+    implementation("org.osmdroid:osmdroid-wms:6.1.11")
 
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     testImplementation("junit:junit:4.13.2")

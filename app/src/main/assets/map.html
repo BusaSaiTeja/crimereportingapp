@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 100vh; width: 100%; }
+        #searchBar { position: absolute; top: 10px; left: 10px; width: 90%; z-index: 1000; }
+        #searchInput { width: 100%; padding: 8px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+<!-- Search Bar -->
+<div id="searchBar">
+    <input type="text" id="searchInput" placeholder="Search location..." />
+</div>
+
+<!-- Map Container -->
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script>
+    let map;
+    let selectedMarker = null;
+
+    function initMap() {
+        // Initialize the map at a default location
+        map = L.map('map').setView([20.5937, 78.9629], 5); // Center map on India
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add search control for location search
+        L.Control.geocoder().addTo(map);
+
+        // Event listener for clicking on the map
+        map.on('click', function(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+
+            // If a marker already exists, remove it
+            if (selectedMarker) {
+                map.removeLayer(selectedMarker);
+            }
+
+            // Create a new marker at the clicked position
+            selectedMarker = L.marker([lat, lng]).addTo(map);
+
+            // Prepare the location data (can be extended to include more details like place name)
+            const locationData = {
+                name: "Selected Location",  // You can improve this with reverse geocoding
+                lat: lat,
+                lng: lng
+            };
+
+            // Send the location data to Android via the WebAppInterface
+            Android.receiveLocationData(JSON.stringify(locationData));
+        });
+    }
+
+    // Initialize the map when the page is loaded
+    window.onload = initMap;
+</script>
+
+</body>
+</html>

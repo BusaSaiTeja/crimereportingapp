@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true" >
+
+
+    </WebView>
 
     <!-- Optional UI elements for status or controls -->
     <!-- You can add buttons, textviews, or progress bars as needed -->

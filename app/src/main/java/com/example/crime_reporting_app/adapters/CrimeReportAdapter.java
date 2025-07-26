@@ -15,7 +15,11 @@ import com.example.crime_reporting_app.models.CrimeReport;
 
 import java.util.List;
 
-public class CrimeReportAdapter extends RecyclerView.Adapter<CrimeReportAdapter.CrimeReportViewHolder> {
+public class
+
+
+
+CrimeReportAdapter extends RecyclerView.Adapter<CrimeReportAdapter.CrimeReportViewHolder> {
 
     private List<CrimeReport> crimeReports;
     private Context context;

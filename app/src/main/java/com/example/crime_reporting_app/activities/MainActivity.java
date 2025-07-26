@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity {
 
         loadCrimeReports();
     }
+
     private void loadCrimeReports() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("crimeReports")
